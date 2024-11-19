@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Chamados</title>
+    <link rel="stylesheet" href="../Style/style.css">
+</head>
+<body>
+    <div class="container-dois">
+        <h1>Gerenciamento de Chamados</h1>
+        <div class="filter">
+            <select id="statusFilter">
+                <option value="">Todos os Status</option>
+                <option value="aberto">Aberto</option>
+                <option value="em andamento">Em Andamento</option>
+                <option value="resolvido">Resolvido</option>
+            </select>
+            <select id="priorityFilter">
+                <option value="">Todas as Criticidades</option>
+                <option value="baixa">Baixa</option>
+                <option value="media">Média</option>
+                <option value="alta">Alta</option>
+            </select>
+            <button onclick="applyFilters()">Filtrar</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Descrição</th>
+                    <th>Criticidade</th>
+                    <th>Status</th>
+                    <th>Colaborador</th>
+                </tr>
+            </thead>
+            <tbody id="callsTable">
+                <tr>
+                    <td>1</td>
+                    <td>Erro no sistema</td>
+                    <td>Alta</td>
+                    <td>Aberto</td>
+                    <td>Maria</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Solicitação de suporte</td>
+                    <td>Média</td>
+                    <td>Em Andamento</td>
+                    <td>João</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        function applyFilters() {
+            const statusFilter = document.getElementById("statusFilter").value.toLowerCase();
+            const priorityFilter = document.getElementById("priorityFilter").value.toLowerCase();
+            const rows = document.querySelectorAll("#callsTable tr");
+
+            rows.forEach(row => {
+                const status = row.cells[3].textContent.toLowerCase();
+                const priority = row.cells[2].textContent.toLowerCase();
+
+                if (
+                    (statusFilter === "" || status === statusFilter) &&
+                    (priorityFilter === "" || priority === priorityFilter)
+                ) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
